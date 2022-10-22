@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tangle/presentation/config/app_router.dart';
+import 'package:tangle/presentation/config/theme.dart';
 import 'presentation/screens/screens.dart';
 
 void main() {
@@ -17,9 +18,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       onGenerateRoute: _appRouter.onGenerateRoute,
       initialRoute: HomeScreen.routeName,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: theme(),
     );
   }
 }
