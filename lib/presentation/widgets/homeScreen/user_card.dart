@@ -22,21 +22,24 @@ class UserCard extends StatelessWidget {
         width: MediaQuery.of(context).size.width,
         child: Stack(
           children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: NetworkImage(user.imageUrls[0]),
-                  fit: BoxFit.cover,
-                ),
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 4,
-                    blurRadius: 4,
-                    offset: const Offset(3, 3),
+            Hero(
+              tag: 'user_image',
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(user.imageUrls[0]),
+                    fit: BoxFit.cover,
                   ),
-                ],
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 4,
+                      blurRadius: 4,
+                      offset: const Offset(3, 3),
+                    ),
+                  ],
+                ),
               ),
             ),
             Container(

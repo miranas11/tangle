@@ -28,74 +28,81 @@ class HomeScreen extends StatelessWidget {
           } else if (state is SwipeLoaded) {
             return Column(
               children: [
-                Draggable(
-                  feedback: UserCard(user: state.users[0]),
-                  childWhenDragging: UserCard(user: state.users[1]),
-                  axis: Axis.horizontal,
-                  onDragEnd: (drag) {
-                    if (drag.velocity.pixelsPerSecond.dx < 0) {
-                      context
-                          .read<SwipeBloc>()
-                          .add(SwipeLeft(user: state.users[0]));
-                      print('Swipe Left');
-                    } else {
-                      context
-                          .read<SwipeBloc>()
-                          .add(SwipeRight(user: state.users[0]));
-                      print("Swipe Right");
-                    }
-                  },
-                  child: UserCard(
-                    user: state.users[0],
+                InkWell(
+                  onDoubleTap: () => Navigator.pushNamed(context, '/user',
+                      arguments: state.users[0]),
+                  child: Draggable(
+                    feedback: UserCard(user: state.users[0]),
+                    childWhenDragging: UserCard(user: state.users[1]),
+                    axis: Axis.horizontal,
+                    onDragEnd: (drag) {
+                      if (drag.velocity.pixelsPerSecond.dx < 0) {
+                        context
+                            .read<SwipeBloc>()
+                            .add(SwipeLeft(user: state.users[0]));
+                        print('Swipe Left');
+                      } else {
+                        context
+                            .read<SwipeBloc>()
+                            .add(SwipeRight(user: state.users[0]));
+                        print("Swipe Right");
+                      }
+                    },
+                    child: UserCard(
+                      user: state.users[0],
+                    ),
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       vertical: 10.0, horizontal: 30),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          context
-                              .read<SwipeBloc>()
-                              .add(SwipeLeft(user: state.users[0]));
-                          print('Swipe Left');
-                        },
-                        child: ChoiceButton(
+                  child: Hero(
+                    tag: 'choice_buttons',
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            context
+                                .read<SwipeBloc>()
+                                .add(SwipeLeft(user: state.users[0]));
+                            print('Swipe Left');
+                          },
+                          child: ChoiceButton(
+                            height: 60,
+                            width: 60,
+                            size: 25,
+                            icon: Icons.clear_rounded,
+                            color: Theme.of(context).colorScheme.secondary,
+                            hasGradient: false,
+                          ),
+                        ),
+                        InkWell(
+                          onTap: () {
+                            context
+                                .read<SwipeBloc>()
+                                .add(SwipeRight(user: state.users[0]));
+                            print('Swipe Right');
+                          },
+                          child: const ChoiceButton(
+                            height: 80,
+                            width: 80,
+                            size: 30,
+                            icon: Icons.favorite,
+                            color: Colors.white,
+                            hasGradient: true,
+                          ),
+                        ),
+                        ChoiceButton(
                           height: 60,
                           width: 60,
                           size: 25,
-                          icon: Icons.clear_rounded,
-                          color: Theme.of(context).colorScheme.secondary,
+                          icon: Icons.watch_later,
+                          color: Theme.of(context).primaryColor,
                           hasGradient: false,
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          context
-                              .read<SwipeBloc>()
-                              .add(SwipeRight(user: state.users[0]));
-                          print('Swipe Right');
-                        },
-                        child: const ChoiceButton(
-                          height: 80,
-                          width: 80,
-                          size: 30,
-                          icon: Icons.favorite,
-                          color: Colors.white,
-                          hasGradient: true,
-                        ),
-                      ),
-                      ChoiceButton(
-                        height: 60,
-                        width: 60,
-                        size: 25,
-                        icon: Icons.watch_later,
-                        color: Theme.of(context).primaryColor,
-                        hasGradient: false,
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 )
               ],
