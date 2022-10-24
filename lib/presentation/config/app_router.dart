@@ -15,6 +15,8 @@ class AppRouter {
         return MatchesScreen.route();
       case UserScreen.routeName:
         return UserScreen.route(user: settings.arguments as User);
+      case OnBoardingScreen.routeName:
+        return OnBoardingScreen.route();
       default:
         return _errorRoute();
     }
