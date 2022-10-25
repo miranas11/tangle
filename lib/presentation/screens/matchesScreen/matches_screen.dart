@@ -37,19 +37,25 @@ class MatchesScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: inActiveMatches.length,
                   itemBuilder: ((context, index) {
-                    return Column(
-                      children: [
-                        UserImageSmall(
-                            height: 70,
-                            width: 70,
-                            imageUrl: inActiveMatches[index]
-                                .matchedUser
-                                .imageUrls[1]),
-                        Text(
-                          inActiveMatches[index].matchedUser.name,
-                          style: Theme.of(context).textTheme.headline5,
-                        ),
-                      ],
+                    return InkWell(
+                      onTap: () {
+                        Navigator.pushNamed(context, '/chat',
+                            arguments: inActiveMatches[index]);
+                      },
+                      child: Column(
+                        children: [
+                          UserImageSmall(
+                              height: 70,
+                              width: 70,
+                              imageUrl: inActiveMatches[index]
+                                  .matchedUser
+                                  .imageUrls[1]),
+                          Text(
+                            inActiveMatches[index].matchedUser.name,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                        ],
+                      ),
                     );
                   }),
                 ),
@@ -63,37 +69,47 @@ class MatchesScreen extends StatelessWidget {
                 shrinkWrap: true,
                 itemCount: activeMatches.length,
                 itemBuilder: ((context, index) {
-                  return Row(
-                    children: [
-                      UserImageSmall(
-                        height: 70,
-                        width: 70,
-                        imageUrl: activeMatches[index].matchedUser.imageUrls[1],
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            activeMatches[index].matchedUser.name,
-                            style: Theme.of(context).textTheme.headline5,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            activeMatches[index].chat[0].messages[0].message,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          const SizedBox(
-                            height: 5,
-                          ),
-                          Text(
-                            activeMatches[index].chat[0].messages[0].timeString,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                        ],
-                      )
-                    ],
+                  return InkWell(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/chat',
+                          arguments: activeMatches[index]);
+                    },
+                    child: Row(
+                      children: [
+                        UserImageSmall(
+                          height: 70,
+                          width: 70,
+                          imageUrl:
+                              activeMatches[index].matchedUser.imageUrls[1],
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              activeMatches[index].matchedUser.name,
+                              style: Theme.of(context).textTheme.headline5,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              activeMatches[index].chat[0].messages[0].message,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                              activeMatches[index]
+                                  .chat[0]
+                                  .messages[0]
+                                  .timeString,
+                              style: Theme.of(context).textTheme.headline6,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   );
                 }),
               ),
