@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "900440235878",
+    "project_id": "flutter-tangle",
+    "storage_bucket": "flutter-tangle.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:900440235878:android:a24d8b54f461e998a0b2a7",
+        "android_client_info": {
+          "package_name": "com.example.tangle"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "900440235878-cspsd7eiimf5sivl8g9i877oj1bte0qa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXedKRwNNFxPsRo7BKVUPhnfK10zDSUb4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "900440235878-cspsd7eiimf5sivl8g9i877oj1bte0qa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

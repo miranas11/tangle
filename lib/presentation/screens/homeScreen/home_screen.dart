@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tangle/presentation/widgets/widgets.dart';
@@ -42,6 +44,7 @@ class HomeScreen extends StatelessWidget {
                         context
                             .read<SwipeBloc>()
                             .add(SwipeLeft(user: state.users[0]));
+
                         print('Swipe Left');
                       } else {
                         context

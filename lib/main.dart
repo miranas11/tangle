@@ -1,12 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tangle/bussiness/blocs/swipe/swipe_bloc.dart';
 import 'package:tangle/presentation/config/app_router.dart';
-import 'package:tangle/presentation/config/theme.dart';
-import 'data/models/user_model.dart';
-import 'presentation/screens/screens.dart';
 
-void main() {
+import 'data/models/models.dart';
+import 'presentation/screens/screens.dart';
+import 'package:tangle/presentation/config/theme.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -31,7 +35,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         onGenerateRoute: _appRouter.onGenerateRoute,
-        initialRoute: HomeScreen.routeName,
+        initialRoute: OnBoardingScreen.routeName,
         theme: theme(),
       ),
     );
