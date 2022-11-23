@@ -1,14 +1,20 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, avoid_print
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../../../../bussiness/blocs/blocs.dart';
 
 class CustomImageContainer extends StatelessWidget {
-  final TabController tabController;
+  final String? imageUrl;
   const CustomImageContainer({
+    this.imageUrl,
     Key? key,
-    required this.tabController,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final _scaffold = ScaffoldMessenger.of(context);
     return Padding(
       padding: const EdgeInsets.only(right: 10, bottom: 10),
       child: Container(
@@ -35,17 +41,38 @@ class CustomImageContainer extends StatelessWidget {
             ),
           ),
         ),
-        child: Align(
-          alignment: Alignment.bottomRight,
-          child: IconButton(
-            alignment: Alignment.bottomRight,
-            icon: Icon(
-              Icons.add_circle,
-              color: Theme.of(context).colorScheme.secondary,
-            ),
-            onPressed: () {},
-          ),
-        ),
+        child: (imageUrl == null)
+            ? Align(
+                alignment: Alignment.bottomRight,
+                child: IconButton(
+                  alignment: Alignment.bottomRight,
+                  icon: Icon(
+                    Icons.add_circle,
+                    color: Theme.of(context).colorScheme.secondary,
+                  ),
+                  onPressed: () async {
+                    ImagePicker _picker = ImagePicker();
+                    final XFile? _picture =
+                        await _picker.pickImage(source: ImageSource.gallery);
+
+                    if (_picture == null) {
+                      _scaffold.showSnackBar(
+                        const SnackBar(content: Text('No image was selected!')),
+                      );
+                    } else {
+                      print('Uploading...');
+                      context
+                          .read<OnboardingBloc>()
+                          .add(UpdateUserImages(image: _picture));
+                      print('Uploaded');
+                    }
+                  },
+                ),
+              )
+            : Image.network(
+                imageUrl!,
+                fit: BoxFit.cover,
+              ),
       ),
     );
   }

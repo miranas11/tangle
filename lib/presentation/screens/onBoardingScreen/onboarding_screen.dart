@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tangle/bussiness/cubits/signup/signup_cubit.dart';
-import 'package:tangle/data/repositories/auth_repository.dart';
 import 'package:tangle/presentation/widgets/widgets.dart';
 import 'onboarding_screens/screens.dart';
 
@@ -12,12 +9,7 @@ class OnBoardingScreen extends StatelessWidget {
 
   static Route route() {
     return MaterialPageRoute(
-      builder: ((context) => BlocProvider(
-            create: (_) => SignupCubit(
-              authRepository: context.read<AuthRepository>(),
-            ),
-            child: const OnBoardingScreen(),
-          )),
+      builder: ((context) => const OnBoardingScreen()),
       settings: const RouteSettings(name: routeName),
     );
   }
@@ -29,6 +21,7 @@ class OnBoardingScreen extends StatelessWidget {
     Tab(text: 'Demo'),
     Tab(text: 'Pictures'),
     Tab(text: 'Biography'),
+    Tab(text: 'location')
   ];
 
   @override
@@ -38,9 +31,6 @@ class OnBoardingScreen extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           final TabController tabController = DefaultTabController.of(context)!;
-          tabController.addListener(() {
-            if (!tabController.indexIsChanging) {}
-          });
           return Scaffold(
             appBar: const CustomAppBar(
               title: 'OnBoarding',
@@ -54,6 +44,7 @@ class OnBoardingScreen extends StatelessWidget {
                 Demographics(tabController: tabController),
                 Pictures(tabController: tabController),
                 Biography(tabController: tabController),
+                Location(tabController: tabController),
               ],
             ),
           );

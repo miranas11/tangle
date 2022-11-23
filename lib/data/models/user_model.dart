@@ -4,7 +4,7 @@ class User extends Equatable {
   final String id;
   final String name;
   final int age;
-  final List<String> imageUrls;
+  final List<dynamic> imageUrls;
   final String bio;
   final String jobTitle;
   final String gender;
@@ -26,6 +26,61 @@ class User extends Equatable {
   @override
   List<Object?> get props =>
       [id, name, age, imageUrls, bio, jobTitle, gender, location, interests];
+
+  factory User.fromSnapshot(snap) {
+    return User(
+      id: snap.id,
+      name: snap['name'],
+      age: snap['age'],
+      imageUrls: snap['imageUrls'],
+      bio: snap['bio'],
+      jobTitle: snap['jobTitle'],
+      gender: snap['gender'],
+      location: snap['location'],
+      interests: snap['interests'],
+    );
+  }
+
+  //Used to store user data from App to firestore
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'age': age,
+      'imageUrls': imageUrls,
+      'bio': bio,
+      'jobTitle': jobTitle,
+      'gender': gender,
+      'location': location,
+      'interests': interests,
+    };
+  }
+
+  //used in onboarding when updating a user
+
+  User copyWith({
+    String? id,
+    String? name,
+    int? age,
+    List<dynamic>? imageUrls,
+    String? bio,
+    String? jobTitle,
+    String? gender,
+    String? location,
+    List<dynamic>? interests,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      age: age ?? this.age,
+      imageUrls: imageUrls ?? this.imageUrls,
+      bio: bio ?? this.bio,
+      jobTitle: jobTitle ?? this.jobTitle,
+      gender: gender ?? this.gender,
+      location: location ?? this.location,
+      interests: interests ?? this.interests,
+    );
+  }
 
   static const List<User> users = [
     User(

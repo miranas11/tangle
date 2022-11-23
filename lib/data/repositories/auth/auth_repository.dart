@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import 'package:tangle/data/repositories/base_auth_repository.dart';
+import 'package:tangle/data/repositories/auth/base_auth_repository.dart';
 
 class AuthRepository extends BaseAuthRepository {
   final auth.FirebaseAuth _firebaseAuth;
@@ -17,6 +17,13 @@ class AuthRepository extends BaseAuthRepository {
       return user;
     } catch (_) {}
     return null;
+  }
+
+  @override
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+    // ignore: avoid_print
+    print('Sign Out Succesfull');
   }
 
   @override
