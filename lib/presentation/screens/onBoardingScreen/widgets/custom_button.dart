@@ -44,6 +44,7 @@ class CustomButton extends StatelessWidget {
                 location: '',
                 interests: const [],
               );
+              // ignore: avoid_print
               print('Inside Cutom Button in Email Screen');
               context.read<OnboardingBloc>().add(StartOnBoarding(user: user));
             }

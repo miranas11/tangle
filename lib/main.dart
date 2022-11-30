@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:tangle/presentation/screens/splashScreen/splash_screen.dart';
 
 import 'presentation/config/app_router.dart';
@@ -56,6 +57,15 @@ class MyApp extends StatelessWidget {
               storageRepository: context.read<StorageRepository>(),
             ),
           ),
+          BlocProvider(
+            create: ((context) => ProfileBloc(
+                  authBloc: context.read<AuthBloc>(),
+                  databaseRepository: context.read<DatabaseRepository>(),
+                )..add(
+                    LoadProfile(
+                        userID: context.read<AuthBloc>().state.user!.uid),
+                  )),
+          )
         ],
         child: MaterialApp(
           title: 'Flutter Demo',

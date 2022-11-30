@@ -1,0 +1,49 @@
+import 'dart:async';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:tangle/bussiness/blocs/auth/auth_bloc.dart';
+import 'package:tangle/data/models/models.dart';
+import 'package:tangle/data/repositories/database/database_repository.dart';
+
+part 'profile_event.dart';
+part 'profile_state.dart';
+
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+  final AuthBloc _authbloc;
+  final DatabaseRepository _databaseRepository;
+  StreamSubscription? _authSubscription;
+  ProfileBloc({
+    required AuthBloc authBloc,
+    required DatabaseRepository databaseRepository,
+  })  : _authbloc = authBloc,
+        _databaseRepository = databaseRepository,
+        super(ProfileLoading()) {
+    on<LoadProfile>(_onLoadProfile);
+    on<UpdateProfile>(_onUpdateProfile);
+
+    _authSubscription = _authbloc.stream.listen((state) {
+      if (state.user != null) {
+        add(LoadProfile(userID: state.user!.uid));
+      }
+    });
+  }
+
+  void _onLoadProfile(LoadProfile event, Emitter<ProfileState> emit) {
+    _databaseRepository.getUser(event.userID).then((value) => {
+          add(UpdateProfile(user: value)),
+        });
+  }
+
+  void _onUpdateProfile(UpdateProfile event, Emitter<ProfileState> emit) {
+    // ignore: avoid_print
+    print(event.user);
+    emit(ProfileLoaded(user: event.user));
+  }
+
+  @override
+  Future<void> close() async {
+    _authSubscription?.cancel();
+    super.close();
+  }
+}
