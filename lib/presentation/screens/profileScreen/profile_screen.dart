@@ -127,13 +127,40 @@ class ProfileScreen extends StatelessWidget {
                         ),
                         const TitleWithWidget(
                             text: 'Interests', icon: Icons.edit),
-                        Row(
-                          children: [
-                            CustomTextContainer(text: user.interests[0]),
-                            CustomTextContainer(text: user.interests[1]),
-                            CustomTextContainer(text: user.interests[2]),
-                          ],
+                        SizedBox(
+                          height: 35,
+                          child: ListView.builder(
+                            itemCount: user.interests.length,
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: ((context, index) {
+                              return (index < user.interests.length)
+                                  ? CustomTextContainer(
+                                      text: user.interests[index])
+                                  : Container(
+                                      width: 5,
+                                      height: 5,
+                                      decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.white,
+                                      ),
+                                      child: Icon(
+                                        Icons.info_outline,
+                                        size: 25,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                    );
+                            }),
+                          ),
                         ),
+                        // Row(
+                        //   children: [
+                        //     CustomTextContainer(text: user.interests[0]),
+                        //     CustomTextContainer(text: user.interests[1]),
+                        //     CustomTextContainer(text: user.interests[2]),
+                        //   ],
+                        // ),
                         TextButton(
                           onPressed: () => {
                             RepositoryProvider.of<AuthRepository>(context)

@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class UserImage extends StatelessWidget {
   final String? url;
@@ -38,8 +35,8 @@ class UserImage extends StatelessWidget {
   const UserImage.large(
       {super.key,
       this.url,
-      required this.height,
-      required this.width,
+      this.height = double.infinity,
+      this.width = double.infinity,
       this.margin,
       this.boxShadow,
       this.boxBorder,
@@ -54,6 +51,7 @@ class UserImage extends StatelessWidget {
       width: width,
       decoration: BoxDecoration(
         image: DecorationImage(
+          fit: BoxFit.cover,
           image: (url == null)
               ? const AssetImage('assets/placeholder-image.png')
                   as ImageProvider
