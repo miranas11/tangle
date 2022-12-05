@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tangle/bussiness/blocs/blocs.dart';
 import 'package:tangle/data/models/models.dart';
 import 'package:tangle/data/repositories/auth/auth_repository.dart';
+import 'package:tangle/presentation/screens/splashScreen/splash_screen.dart';
 
 import '../../widgets/widgets.dart';
 
@@ -154,17 +155,13 @@ class ProfileScreen extends StatelessWidget {
                             }),
                           ),
                         ),
-                        // Row(
-                        //   children: [
-                        //     CustomTextContainer(text: user.interests[0]),
-                        //     CustomTextContainer(text: user.interests[1]),
-                        //     CustomTextContainer(text: user.interests[2]),
-                        //   ],
-                        // ),
                         TextButton(
-                          onPressed: () => {
+                          onPressed: () {
                             RepositoryProvider.of<AuthRepository>(context)
-                                .signOut()
+                                .signOut();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                                SplashScreen.routeName,
+                                ModalRoute.withName('/splash'));
                           },
                           child: Center(
                             child: Text(

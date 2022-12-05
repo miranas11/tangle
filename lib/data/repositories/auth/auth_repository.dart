@@ -27,5 +27,17 @@ class AuthRepository extends BaseAuthRepository {
   }
 
   @override
+  Future<void> logInWithEmailandPassword({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      _firebaseAuth.signInWithEmailAndPassword(
+          email: email, password: password);
+      // ignore: empty_catches
+    } catch (e) {}
+  }
+
+  @override
   Stream<auth.User?> get user => _firebaseAuth.userChanges();
 }

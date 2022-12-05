@@ -4,8 +4,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tangle/bussiness/blocs/blocs.dart';
-import 'package:tangle/presentation/screens/homeScreen/home_screen.dart';
-import 'package:tangle/presentation/screens/onBoardingScreen/onboarding_screen.dart';
+import 'package:tangle/presentation/screens/screens.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -27,10 +26,10 @@ class SplashScreen extends StatelessWidget {
           if (state.status == AuthStatus.unauthenticated ||
               state.status == AuthStatus.unknown) {
             Timer(
-                const Duration(seconds: 1),
+                const Duration(seconds: 2),
                 () => Navigator.of(context).pushNamedAndRemoveUntil(
-                      OnBoardingScreen.routeName,
-                      ModalRoute.withName('/onboarding'),
+                      LoginScreen.routeName,
+                      ModalRoute.withName('/login'),
                     ));
           } else if (state.status == AuthStatus.authenticated) {
             Timer(
